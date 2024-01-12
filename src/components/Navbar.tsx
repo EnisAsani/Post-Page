@@ -66,7 +66,7 @@ export const Navbar = (props:any) => {
           horizontal: 'left',
         }}
       >
-        <MenuItem onClick={()=> navigate('/profile')}>Profile</MenuItem>
+        <MenuItem onClick={()=> navigate('/people')}>People</MenuItem>
         {/* <MenuItem>My account</MenuItem>
         <MenuItem>Logout</MenuItem> */}
       </Menu>
