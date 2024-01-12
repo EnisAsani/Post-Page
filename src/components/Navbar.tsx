@@ -1,7 +1,8 @@
-import { AppBar, Avatar, Badge, Box, InputBase, Menu, MenuItem, Toolbar, Typography, styled } from "@mui/material"
+import { AppBar, Avatar, Box, InputBase, Menu, MenuItem, Toolbar, Typography, styled } from "@mui/material"
 import VideogameAssetIcon from '@mui/icons-material/VideogameAsset';
-import {Mail, Notifications} from "@mui/icons-material"
+// import {Mail, Notifications} from "@mui/icons-material"
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 const StyledToolbar = styled(Toolbar)({
@@ -29,21 +30,22 @@ const NavIcons = styled(Box)(() => ({
     cursor:'pointer'
 }))
 
-export const Navbar = () => {
+export const Navbar = (props:any) => {
     const [isProfileOpen, setIsProfileOpen] = useState(false)
+    const navigate = useNavigate()
 
     return <AppBar position="sticky">
         <StyledToolbar>
-            <Typography sx={{display: {xs: "none", sm: "block"} }} variant="h6">FIND ME</Typography>
+            <Typography onClick={()=> navigate('/')} sx={{display: {xs: "none", sm: "block"}, cursor:'pointer' }} variant="h6">FIND ME</Typography>
             <VideogameAssetIcon sx={{display: {xs: "block", sm: "none"} }}/>
-            <Search><InputBase placeholder="search"/></Search>
+            <Search><InputBase sx={{flex:1}} placeholder="search"/></Search>
             <NavIcons>
-                <Badge sx={{display: {xs: "none", sm: "block"} }} badgeContent={4} color="error">
+                {/* <Badge sx={{display: {xs: "none", sm: "block"} }} badgeContent={4} color="error">
                     <Mail  />
                 </Badge>
                 <Badge sx={{display: {xs: "none", sm: "block"} }} badgeContent={2} color="error">
                     <Notifications/>
-                </Badge>
+                </Badge> */}
                 <Avatar 
                 onClick={()=> setIsProfileOpen(true)}
                 alt="enko img" src="/images/CV - Enko.jpg" />
@@ -64,9 +66,10 @@ export const Navbar = () => {
           horizontal: 'left',
         }}
       >
-        <MenuItem>Profile</MenuItem>
-        <MenuItem>My account</MenuItem>
-        <MenuItem>Logout</MenuItem>
+        <MenuItem onClick={()=> navigate('/profile')}>Profile</MenuItem>
+        {/* <MenuItem>My account</MenuItem>
+        <MenuItem>Logout</MenuItem> */}
       </Menu>
+      {props.children}
     </AppBar>
 }

@@ -4,7 +4,7 @@ import { Post } from "./Post";
 export const Feed = () => {
 
 
-    return <Box flex={4}  p={2} >
+    return <Box sx={{padding:'10px 30px', flex:'1 1 60%'}}  p={2} >
         <Post title="John Doe" 
         avatarColor="orangered" 
         postDate="14 Jan 2015"

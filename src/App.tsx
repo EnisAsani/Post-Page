@@ -1,23 +1,36 @@
-import { Rightbar } from "./components/Rightbar"
 import { Sidebar } from "./components/Sidebar"
-import { Feed } from "./components/Feed"
 import { Navbar } from "./components/Navbar"
 import { Box } from "@mui/material"
-import Stack from '@mui/material/Stack';
-
+import { Modal } from "./components/Modal"
+import { ImageSlider } from "./components/ImageSlider"
+import {images} from "./data/images"
+import { Routes, Route } from "react-router-dom";
+import { Home } from "./pages/Home"
+import { useModalContext } from "./context/modalContext"
+import { People } from "./pages/People"
+// import { Profile } from "./pages/Profile"
 
 function App() {
 
-
+  const {activeModal} = useModalContext()
 
   return (
     <Box>
-      <Navbar />
-      <Stack direction="row" justifyContent="space-between" spacing={1}>
+      <Navbar className="relative">
+       {activeModal && <Modal>
+        <ImageSlider 
+       images={images}/>
+       </Modal> }
+        </Navbar>
       <Sidebar />
-      <Feed />
-      <Rightbar />
-      </Stack>
+
+        <Routes >
+          <Route path="/home" element={<Home />}/>
+          <Route path="/" element={<Home />}/>
+          <Route path="/people" element={<People />}/>
+          {/* <Route path="/profile" element={<Profile />}/> */}
+        </Routes>
+      
     </Box>
   )
 }

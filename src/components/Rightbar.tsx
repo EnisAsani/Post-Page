@@ -1,11 +1,18 @@
 import { Avatar, AvatarGroup, Box, ImageList, ImageListItem, ListItem, ListItemAvatar, ListItemText, Typography, List, Divider } from "@mui/material"
 import React from "react"
+import {images} from "../data/images"
+import { useModalContext } from "../context/modalContext"
 
 export const Rightbar = () => {
+
+  const {handleActiveteModal} = useModalContext()
+
+
     return <Box flex={2} 
-    p={2} 
-    sx={{display: {xs: "none", sm: "block"} }} >
-    <Box position="fixed" padding="0 20px 0 0">
+    p={2}
+    sx={{display: 'flex' ,minHeight:'90vh', flexDirection:{md:'row', xs:'column'}, paddingBottom:'100px'}}
+     >
+    <Box sx={{flex:'1',}}>
         <Typography variant="h6" fontWeight={300}>
             Online Friends</Typography>
             <AvatarGroup max={4} sx={{display: "flex", 
@@ -17,35 +24,11 @@ export const Rightbar = () => {
                 <Avatar sx={{cursor:'pointer'}} alt="Agnes Walker" src="/static/images/avatar/4.jpg" />
                 <Avatar sx={{cursor:'pointer'}} alt="Trevor Henderson" src="/static/images/avatar/5.jpg" />
             </AvatarGroup>
-            <Typography variant="h6" fontWeight={300} padding="0 0 10px 0">
-            Latest Photos</Typography>
-            <ImageList cols={3} rowHeight={100}>
-                <ImageListItem>
-                <img style={{cursor:'pointer'}}
-            src="https://images.pexels.com/photos/1323550/pexels-photo-1323550.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            alt="photo"
-            loading="lazy"
-                />
-            </ImageListItem>
-            <ImageListItem>
-                <img style={{cursor:'pointer'}}
-            src="https://images.pexels.com/photos/2341830/pexels-photo-2341830.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            alt="photo"
-            loading="lazy"
-                />
-            </ImageListItem>
-            <ImageListItem>
-                <img style={{cursor:'pointer'}}
-            src="https://images.pexels.com/photos/3980364/pexels-photo-3980364.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
-            alt="photo"
-            loading="lazy"
-                />
-            </ImageListItem>
-            </ImageList>
+            
             <Typography padding="10px 0" variant="h6" fontWeight={300}>
             Latest Conversations</Typography>
-            <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper',
-         overflowY: "scroll", height: "300px"}}>
+            <List sx={{ width: '100%', bgcolor: 'background.paper',
+         overflowY: "auto", minHeight: "300px"}}>
       <ListItem alignItems="flex-start" sx={{cursor:'pointer'}}>
         <ListItemAvatar>
           <Avatar alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
@@ -134,6 +117,25 @@ export const Rightbar = () => {
         />
       </ListItem>
       </List>
+    </Box>
+    <Box sx={{flex:'1'}}>
+    <Typography variant="h6" fontWeight={300} padding="0 0 10px 0">
+            Latest Photos</Typography>
+            <div>
+            <ImageList sx={{display:'flex', flexWrap:'wrap'}} >
+              {images.map((img:any, index:number) => (
+                <ImageListItem sx={{flex:'1 1 200px',}} key={index}>
+                <img onClick={()=> handleActiveteModal(index)} style={{cursor:'pointer',height:"150px"}}
+            src={img.imgUrl}
+            alt="photo"
+            loading="lazy"
+                />
+            </ImageListItem>
+              )
+              )}
+                
+            </ImageList>
+            </div>
     </Box>
     </Box>
 }
